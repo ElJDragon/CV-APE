@@ -85,7 +85,8 @@ public class EventoControlador {
             if (rs.next()) {
                 String ultimoId = rs.getString("ultimo_id");
                 if (ultimoId != null) {
-                    int numero = Integer.parseInt(ultimoId.substring(2));
+                    System.out.println(ultimoId);
+                    int numero = Integer.parseInt(ultimoId);
                     return ""+ (numero + 1);
                 }
             }

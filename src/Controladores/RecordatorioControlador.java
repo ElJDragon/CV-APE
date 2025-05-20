@@ -22,16 +22,15 @@ public class RecordatorioControlador {
 
     public boolean crearRecordatorio(Recordatorio recordatorio) throws SQLException {
         String sql = """
-        INSERT INTO RECORDATORIOS (ID_REC, ID_EVE, MIN_ANT_REC, ACT_REC, ID_USU)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO RECORDATORIOS ( ID_EVE, MIN_ANT_REC, ACT_REC, ID_USU)
+        VALUES ( ?, ?, ?, ?)
         """;
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, recordatorio.getId());
-            ps.setString(2, recordatorio.getIdEvento());
-            ps.setInt(3, recordatorio.getMinutosAntes());
-            ps.setBoolean(4, recordatorio.isActivo());
-            ps.setInt(5, usuario);
+            ps.setString(1, recordatorio.getIdEvento());
+            ps.setInt(2, recordatorio.getMinutosAntes());
+            ps.setBoolean(3, recordatorio.isActivo());
+            ps.setInt(4, usuario);
 
             int filasInsertadas = ps.executeUpdate();
             return filasInsertadas > 0;
