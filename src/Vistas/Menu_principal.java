@@ -13,9 +13,17 @@ import Modelos.FondoPanel;
 import Modelos.SesionUsuario;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.io.InputStream;
 import java.sql.*;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -72,8 +80,18 @@ public class Menu_principal extends javax.swing.JFrame {
         });
 
         jbtnAgenda.setText("Reporte de texto");
+        jbtnAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnAgendaActionPerformed(evt);
+            }
+        });
 
         jbtnReporteGrafico.setText("Reporte grafico");
+        jbtnReporteGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnReporteGraficoActionPerformed(evt);
+            }
+        });
 
         jbtnUsuario.setText("Cambiar usuario");
         jbtnUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +175,34 @@ public class Menu_principal extends javax.swing.JFrame {
         this.dispose();
 
     }//GEN-LAST:event_jbtnUsuarioActionPerformed
+
+    private void jbtnAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAgendaActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            ConexionBD cn = new ConexionBD();
+            Connection cc = cn.conectar();
+            InputStream reporteStream = getClass().getResourceAsStream("/Reportes/reporteGeneral.jasper");
+            JasperPrint print = JasperFillManager.fillReport(reporteStream, null, cc);
+            JasperViewer.viewReport(print, false);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }//GEN-LAST:event_jbtnAgendaActionPerformed
+
+    private void jbtnReporteGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReporteGraficoActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            ConexionBD cn = new ConexionBD();
+            Connection cc = cn.conectar();
+            InputStream reporteStream = getClass().getResourceAsStream("/Reportes/reporteGrafico.jasper");
+            JasperPrint print = JasperFillManager.fillReport(reporteStream, null, cc);
+            JasperViewer.viewReport(print, false);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }    
+    }//GEN-LAST:event_jbtnReporteGraficoActionPerformed
 
     /**
      * @param args the command line arguments
