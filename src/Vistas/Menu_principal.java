@@ -9,9 +9,12 @@ import Controladores.EventoControlador;
 import Controladores.LoginControlador;
 import Controladores.RecordatorioControlador;
 import Controladores.RegistroControlador;
+import Modelos.FondoPanel;
 import Modelos.SesionUsuario;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.sql.*;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -24,12 +27,20 @@ public class Menu_principal extends javax.swing.JFrame {
      * Creates new form Menu_principal
      */
     public Menu_principal() {
-        initComponents();
-        JPanel recordatorios = new PanelListaRecordatorios();
-        Recordatorios.add(recordatorios);
+       ImageIcon fondoIcon = new ImageIcon(getClass().getResource("/IMG/imgCOmpleta.jpg"));
+    Image imagen = fondoIcon.getImage();
 
-        recordatorios.setSize(new Dimension(400, 300));
-        setLocationRelativeTo(null);
+    // Aplica el fondo al frame
+    FondoPanel fondo = new FondoPanel(imagen);
+    setContentPane(fondo); // Aplica el fondo ANTES de initComponents()
+
+        initComponents();
+        personalizarMenu();
+        JPanel recordatorios = new PanelListaRecordatorios();
+    Recordatorios.add(recordatorios);
+    recordatorios.setSize(new Dimension(400, 300));
+
+    setLocationRelativeTo(null); // Centrar ventana
 
     }
 
@@ -150,6 +161,52 @@ public class Menu_principal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    private void personalizarMenu() {
+    // Desactivar layout automático
+    setLayout(null);
+
+    // Título
+    jlblOpcion.setText("ELIJA UNA OPCIÓN");
+    jlblOpcion.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 20));
+    jlblOpcion.setBounds(50, 20, 300, 40);
+    add(jlblOpcion);
+
+    // Botón Eventos
+    jButton1.setText("Eventos");
+    jButton1.setBackground(new java.awt.Color(0, 123, 255));
+    jButton1.setForeground(java.awt.Color.WHITE);
+    jButton1.setFocusPainted(false);
+    jButton1.setBounds(50, 80, 180, 40);
+    add(jButton1);
+
+    // Botón Reporte Texto
+    jbtnAgenda.setText("Reporte de texto");
+    jbtnAgenda.setBackground(new java.awt.Color(40, 167, 69));
+    jbtnAgenda.setForeground(java.awt.Color.WHITE);
+    jbtnAgenda.setFocusPainted(false);
+    jbtnAgenda.setBounds(50, 130, 180, 40);
+    add(jbtnAgenda);
+
+    // Botón Reporte Gráfico
+    jbtnReporteGrafico.setText("Reporte gráfico");
+    jbtnReporteGrafico.setBackground(new java.awt.Color(23, 162, 184));
+    jbtnReporteGrafico.setForeground(java.awt.Color.WHITE);
+    jbtnReporteGrafico.setFocusPainted(false);
+    jbtnReporteGrafico.setBounds(50, 180, 180, 40);
+    add(jbtnReporteGrafico);
+
+    // Botón Cambiar usuario
+    jbtnUsuario.setText("Cambiar usuario");
+    jbtnUsuario.setBackground(new java.awt.Color(255, 193, 7));
+    jbtnUsuario.setForeground(java.awt.Color.BLACK);
+    jbtnUsuario.setFocusPainted(false);
+    jbtnUsuario.setBounds(50, 230, 180, 40);
+    add(jbtnUsuario);
+
+    // Panel Recordatorios (NO TOCAR)
+    Recordatorios.setBounds(270, 20, 450, 400);
+    add(Recordatorios);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Recordatorios;
