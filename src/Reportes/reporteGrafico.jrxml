@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f7980202-33fe-4840-b2b6-66ff3ef3c006">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+    E.FEC_EVE AS fecha_evento,
+    U.NOM_USU || ' ' || U.APE_USU AS nombre_usuario,
+    E.TIT_EVE AS titulo_evento,
+    COUNT(*) AS total_eventos
+FROM 
+    EVENTOS E
+JOIN 
+    USUARIOS U ON E.ID_USU = U.ID_USU
+GROUP BY 
+    E.FEC_EVE, E.TIT_EVE, U.NOM_USU, U.APE_USU
+ORDER BY 
+    E.FEC_EVE;]]>
+	</queryString>
+	<field name="fecha_evento" class="java.sql.Date"/>
+	<field name="nombre_usuario" class="java.lang.String"/>
+	<field name="titulo_evento" class="java.lang.String"/>
+	<field name="total_eventos" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="300" y="22" width="149" height="38" uuid="cefa34e2-74b5-491f-962c-87507f2a8a45"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Reporte Grafico]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="cd9909d6-d211-4871-b9c9-97ec2e7e7fa0"/>
+				<text><![CDATA[Fecha de evento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="20" uuid="4c6b3c7d-d034-48e5-bfef-baf1c51e9cbd"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="20" uuid="f05c7153-e975-44f0-bc65-88bbba3c9421"/>
+				<text><![CDATA[Titulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="100" height="20" uuid="b03c83c2-0707-42ae-853d-e0b79f6c1892"/>
+				<text><![CDATA[Total eventos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="100" height="20" uuid="d4122c17-c50a-4fe3-8f5c-22551da6d123"/>
+				<textFieldExpression><![CDATA[$F{fecha_evento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="1" width="100" height="20" uuid="9561a1d1-26dc-4bf7-b2bd-7350e0ff35ff"/>
+				<textFieldExpression><![CDATA[$F{nombre_usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="6b75f5c9-0f99-4ef6-85f5-108150dac9b5"/>
+				<textFieldExpression><![CDATA[$F{titulo_evento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="1" width="100" height="20" uuid="c85a1eba-8675-4b33-9b2a-255e2dd13339"/>
+				<textFieldExpression><![CDATA[$F{total_eventos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="555" splitType="Stretch">
+			<barChart>
+				<chart>
+					<reportElement x="100" y="15" width="615" height="286" uuid="fa7d4320-3e2b-4798-9186-3e4632785cdf"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Eventos"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{titulo_evento}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{total_eventos}]]></valueExpression>
+						<labelExpression><![CDATA[$F{nombre_usuario} + " - " + $F{titulo_evento} + " (" + $F{total_eventos} + ")"]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>

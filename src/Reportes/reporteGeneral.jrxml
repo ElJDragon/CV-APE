@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="188357cf-c60e-4f08-9e19-a97ee962d1cb">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+    e.FEC_EVE AS fecha_evento,
+    COUNT(e.ID_EVE) OVER (PARTITION BY e.FEC_EVE) AS total_eventos,
+    e.TIT_EVE,
+    e.DES_EVE,
+    e.HOR_EVE,
+    u.NOM_USU,
+    u.APE_USU
+FROM 
+    EVENTOS e
+JOIN 
+    USUARIOS u ON e.ID_USU = u.ID_USU
+ORDER BY 
+    e.FEC_EVE, e.HOR_EVE;]]>
+	</queryString>
+	<field name="fecha_evento" class="java.sql.Date"/>
+	<field name="total_eventos" class="java.lang.Long"/>
+	<field name="tit_eve" class="java.lang.String"/>
+	<field name="des_eve" class="java.lang.String"/>
+	<field name="hor_eve" class="java.sql.Time"/>
+	<field name="nom_usu" class="java.lang.String"/>
+	<field name="ape_usu" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="309" y="16" width="179" height="46" uuid="409ab199-54f4-452c-b5fb-4e3f8caf5ee5"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Reporte Agenda]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="ccda665c-42e6-4240-b50a-4a0e0fd516ba"/>
+				<text><![CDATA[Fecha del evento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="20" uuid="be94ccbf-1b97-4f65-9df8-d15e95a8d5eb"/>
+				<text><![CDATA[Total eventos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="20" uuid="b73f26e9-cf13-4464-9e44-a9e8189afd33"/>
+				<text><![CDATA[Titulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="153" height="20" uuid="ffe40830-0308-4faf-8632-23abae177b2c"/>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="0" width="100" height="20" uuid="13933e68-7fe9-4d67-a805-dff8c359a5fd"/>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="553" y="0" width="100" height="20" uuid="7290c428-225a-480f-9e01-8c7b2b3c7da0"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="653" y="0" width="100" height="20" uuid="1be7ec82-4bcb-42c0-a766-fb6d0f33347a"/>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="100" height="20" uuid="753d328b-1110-4c8f-885c-60f17f7907e2"/>
+				<textFieldExpression><![CDATA[$F{fecha_evento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="6786daf7-b2f9-4529-ae44-24f6f6b035b4"/>
+				<textFieldExpression><![CDATA[$F{total_eventos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="5298a021-5eae-4237-8ec7-da03e188eed2"/>
+				<textFieldExpression><![CDATA[$F{tit_eve}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="153" height="20" uuid="b1d386a8-4bba-4c0d-b2cf-dc43ef3d0d74"/>
+				<textFieldExpression><![CDATA[$F{des_eve}]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="453" y="0" width="100" height="20" uuid="2a05edd4-c66e-499a-a7bf-5dafea272ce9"/>
+				<textFieldExpression><![CDATA[$F{hor_eve}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="553" y="0" width="100" height="20" uuid="380d2474-622c-4dc2-bc06-e85a72b131a0"/>
+				<textFieldExpression><![CDATA[$F{nom_usu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="653" y="0" width="100" height="20" uuid="56edd31b-7b8d-4b66-aa52-0839f0e8ea6f"/>
+				<textFieldExpression><![CDATA[$F{ape_usu}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
