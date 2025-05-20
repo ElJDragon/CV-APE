@@ -5,6 +5,8 @@
 package Vistas;
 
 import BD.ConexionBD;
+import Controladores.EventoControlador;
+import Controladores.LoginControlador;
 import Controladores.RecordatorioControlador;
 import Controladores.RegistroControlador;
 import Modelos.SesionUsuario;
@@ -40,16 +42,16 @@ public class Menu_principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jlblOpcion = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jbtnAgenda = new javax.swing.JButton();
+        jbtnReporteGrafico = new javax.swing.JButton();
+        jbtnUsuario = new javax.swing.JButton();
         Recordatorios = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("jLabel1");
+        jlblOpcion.setText("Elija una opcion");
 
         jButton1.setText("Eventos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -58,11 +60,18 @@ public class Menu_principal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton2");
+        jbtnAgenda.setText("Reporte de texto");
 
-        jButton3.setText("jButton3");
+        jbtnReporteGrafico.setText("Reporte grafico");
 
-        jButton4.setText("jButton4");
+        jbtnUsuario.setText("Cambiar usuario");
+        jbtnUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnUsuarioActionPerformed(evt);
+            }
+        });
+
+        Recordatorios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout RecordatoriosLayout = new javax.swing.GroupLayout(Recordatorios);
         Recordatorios.setLayout(RecordatoriosLayout);
@@ -82,38 +91,41 @@ public class Menu_principal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
+                        .addGap(115, 115, 115)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(71, 71, 71)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                            .addComponent(jbtnAgenda, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jbtnReporteGrafico, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlblOpcion, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtnUsuario))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(Recordatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Recordatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(31, 31, 31)
+                        .addGap(44, 44, 44)
+                        .addComponent(Recordatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jbtnUsuario)
+                        .addGap(53, 53, 53)
+                        .addComponent(jlblOpcion)
+                        .addGap(33, 33, 33)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(jbtnAgenda)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addComponent(jbtnReporteGrafico)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -121,24 +133,30 @@ public class Menu_principal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         AgendaPersonalizada vista = new AgendaPersonalizada();
+        EventoControlador controlador = new EventoControlador();
         vista.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jbtnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnUsuarioActionPerformed
+        
+        SesionUsuario.cerrarSesion();
+        Login_VIEW log = new Login_VIEW();
+        Controladores.LoginControlador contLogin = new LoginControlador(log);
+        log.setVisible(true);
+        this.dispose();
+
+    }//GEN-LAST:event_jbtnUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    SesionUsuario sesion = new SesionUsuario();
-    ConexionBD bd = new ConexionBD();
-    Connection conexion = bd.conectar();
-    int usuario = sesion.getUsuarioActual().getId();
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Recordatorios;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jbtnAgenda;
+    private javax.swing.JButton jbtnReporteGrafico;
+    private javax.swing.JButton jbtnUsuario;
+    private javax.swing.JLabel jlblOpcion;
     // End of variables declaration//GEN-END:variables
 }

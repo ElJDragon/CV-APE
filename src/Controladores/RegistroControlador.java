@@ -43,6 +43,7 @@ public class RegistroControlador implements ActionListener {
 
             if (registrarUsuario(usuario)) {
                 JOptionPane.showMessageDialog(vista, "✅ Usuario registrado exitosamente.");
+                
                 vista.dispose();
             } else {
                 JOptionPane.showMessageDialog(vista, "❌ Error al registrar usuario. Verifica los datos o intenta de nuevo.");

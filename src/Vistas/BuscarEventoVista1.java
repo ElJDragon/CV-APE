@@ -360,7 +360,7 @@ public class BuscarEventoVista1 extends javax.swing.JFrame {
                             while (rs.next()) {
                                 hayResultados = true;
 
-                                int idEvento = rs.getInt("ID_EVE"); // <-- ahora es int
+                                String idEvento = rs.getString("ID_EVE"); // <-- ahora es int
                                 String tituloEvento = rs.getString("TIT_EVE");
                                 Date fechaEvento = rs.getDate("FEC_EVE");
                                 Date horaEvento = rs.getTime("HOR_EVE");
@@ -369,9 +369,9 @@ public class BuscarEventoVista1 extends javax.swing.JFrame {
                                 System.out.println("Evento encontrado: ID=" + idEvento + ", Título=" + tituloEvento);
 
                                 List<Recordatorio> recordatorios = controlador.obtenerRecordatoriosEvento(
-                                        Integer.toString(idEvento));
+                                        idEvento);
 
-                                JPanel panelEvento = crearPanelEvento(Integer.toString(idEvento), tituloEvento,
+                                JPanel panelEvento = crearPanelEvento(idEvento, tituloEvento,
                                         fechaEvento, horaEvento, descripcion, recordatorios);
 
                                 panelResultados.add(panelEvento);
